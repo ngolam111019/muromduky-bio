@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Băng Mũ Rơm du lịch Việt Nam · @muromduky</title>
+<meta name="description" content="Series hoạt hình AI: băng Mũ Rơm đi khắp Việt Nam. LIVE 20h mỗi tối. Nhận cẩm nang làm video AI miễn phí.">
+<meta name="theme-color" content="#0b1d2e">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Băng Mũ Rơm du lịch Việt Nam 🇻🇳">
+<meta property="og:description" content="LIVE 20h mỗi tối · Nhận cẩm nang làm video hoạt hình AI miễn phí">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏴‍☠️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1d2e; --bg2:#0f2a40; --card:rgba(255,255,255,.06); --card-b:rgba(255,255,255,.12);
+    --text:#f4f1e8; --muted:#a9b8c6; --gold:#f5b942; --gold-2:#ffd977; --red:#ff4d5a; --sea:#3fd2c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg)}
+  body{
+    font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--text); min-height:100vh; line-height:1.45;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #17435f 0%, transparent 60%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:0 16px 40px}
+
+  /* HERO */
+  .hero{position:relative;margin:0 -16px;height:320px;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(11,29,46,0) 40%,rgba(11,29,46,.75) 78%,var(--bg) 100%)}
+  .live-pill{position:absolute;top:14px;left:14px;z-index:2;display:flex;align-items:center;gap:8px;
+    background:rgba(11,29,46,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    border:1px solid var(--card-b);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+  .live-pill.on .dot{background:var(--red);box-shadow:0 0 0 0 rgba(255,77,90,.7);animation:pulse 1.6s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,77,90,0)}100%{box-shadow:0 0 0 0 rgba(255,77,90,0)}}
+
+  /* PROFILE */
+  .profile{position:relative;margin-top:-64px;text-align:center;z-index:3}
+  .handle{display:inline-block;text-decoration:none;font-size:13px;font-weight:600;color:var(--sea);letter-spacing:.2px;margin-bottom:6px}
+  h1{font-size:25px;font-weight:800;line-height:1.2;letter-spacing:-.3px}
+  h1 span{color:var(--gold)}
+  .tagline{margin:10px auto 0;max-width:360px;color:var(--muted);font-size:15px}
+  .tagline b{color:var(--text);font-weight:600}
+
+  /* LINKS */
+  .links{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+  .btn{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
+    background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:14px 16px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;min-height:64px}
+  .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22)}
+  .btn:active{transform:translateY(0)}
+  .ico{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:rgba(255,255,255,.08)}
+  .txt{flex:1;min-width:0;text-align:left}
+  .txt strong{display:block;font-size:15.5px;font-weight:700}
+  .txt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+  .arrow{color:var(--muted);font-size:20px}
+
+  .btn.primary{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);color:#1b1405;border:none;
+    box-shadow:0 10px 28px -10px rgba(245,185,66,.65);padding:18px 16px;position:relative;overflow:hidden}
+  .btn.primary .ico{background:rgba(27,20,5,.12)}
+  .btn.primary small{color:#4a3a12}
+  .btn.primary .arrow{color:#1b1405}
+  .btn.primary::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.2s infinite}
+  @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+  .badge{display:inline-block;font-size:11px;font-weight:700;background:#1b1405;color:var(--gold-2);
+    border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+  .btn.live .ico{background:rgba(255,77,90,.16)}
+
+  /* SECTION */
+  .section-title{margin:28px 2px 10px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+
+  /* SOCIAL */
+  .social{display:flex;justify-content:center;gap:12px;margin-top:28px}
+  .social a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+    background:var(--card);border:1px solid var(--card-b);color:var(--text);transition:background .15s}
+  .social a:hover{background:rgba(255,255,255,.12)}
+  .social svg{width:20px;height:20px;fill:currentColor}
+
+  footer{margin-top:28px;text-align:center;font-size:11.5px;color:#7f92a3;line-height:1.6}
+  footer a{color:inherit}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <img src="assets/cover.jpg" alt="Băng Mũ Rơm trên du thuyền ở Vịnh Hạ Long">
+    <div class="live-pill" id="livePill"><span class="dot"></span><span id="liveText">LIVE 20h mỗi tối</span></div>
+  </header>
+
+  <section class="profile">
+    <a class="handle" id="handleLink" href="#">@muromduky</a>
+    <h1>Băng Mũ Rơm<br><span>du lịch Việt Nam 🇻🇳</span></h1>
+    <p class="tagline">Mình làm series hoạt hình này <b>một mình bằng AI</b>. Bạn cũng làm được, cẩm nang ở ngay dưới nè 👇</p>
+  </section>
+
+  <nav class="links" id="links"></nav>
+
+  <div class="social" id="social"></div>
+
+  <footer>
+    Nội dung fan-made, tạo bằng AI, không vì mục đích thương mại.<br>
+    One Piece © Eiichiro Oda / Shueisha / Toei Animation.<br>
+    © <span id="year"></span> Lâm Solobiz
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   CẤU HÌNH: chỉ cần sửa phần này
+   - Để url là "" thì nút đó tự ẩn.
+   - "tag" là chữ nhỏ cạnh tiêu đề (để "" nếu không cần).
+   ========================================================= */
+const CONFIG = {
+  tiktok: "https://www.tiktok.com/@muromduky",
+  liveHour: 20,              // giờ live (giờ Việt Nam)
+  liveDurationMin: 90,       // live kéo dài bao nhiêu phút
+  utmSource: "tiktok",       // nguồn traffic gắn vào link
+
+  links: [
+    { primary: true, icon: "🎁", title: "Cẩm nang làm video AI", tag: "FREE",
+      sub: "Chọn ngách, viết kịch bản, làm video trên Google Flow",
+      url: "https://forms.gle/THAY_LINK_GOOGLE_FORM_CUA_BAN", id: "guide" },
+
+    { icon: "💬", title: "Nhóm Zalo học làm video AI",
+      sub: "Hỏi đáp, chia sẻ prompt, nhận tài liệu mới",
+      url: "https://zalo.me/g/THAY_MA_NHOM", id: "zalo-group" },
+
+    { live: true, icon: "🔴", title: "Xem LIVE 20h mỗi tối",
+      sub: "Băng Mũ Rơm nhảy múa, hát hò cùng bạn",
+      url: "https://www.tiktok.com/@muromduky/live", id: "live" },
+
+    { icon: "🛠️", title: "Công cụ làm video của Lâm",
+      sub: "Từ ý tưởng đến kịch bản và prompt chỉ trong vài phút",
+      url: "", id: "tool" },            // điền link khi công cụ sẵn sàng
+
+    { icon: "📩", title: "Nhận làm video AI cho shop, homestay",
+      sub: "Video quảng cáo hoạt hình, nhắn Zalo báo giá",
+      url: "https://zalo.me/THAY_SO_ZALO", id: "service" },
+  ],
+
+  social: {
+    tiktok:   "https://www.tiktok.com/@muromduky",
+    facebook: "https://www.facebook.com/lam.solobiz",
+    youtube:  "https://www.youtube.com/@lam-life",
+    zalo:     ""
+  }
+};
+/* ======================= HẾT CẤU HÌNH ======================= */
+
+const ICONS = {
+  tiktok:'<svg viewBox="0 0 24 24"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>',
+  facebook:'<svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.33-.04-1.56-.14-2.86-.14C11.93 2 10 3.66 10 6.7v2.8H7v4h3V22h4z"/></svg>',
+  youtube:'<svg viewBox="0 0 24 24"><path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42a2.5 2.5 0 0 0-1.76 1.77C2 8.76 2 12 2 12s0 3.24.42 4.81a2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77C22 15.24 22 12 22 12s0-3.24-.42-4.81zM10 15V9l5.2 3z"/></svg>',
+  zalo:'<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.7 1.33 5.12 3.43 6.77L5 22l4.13-2.2c.92.26 1.88.4 2.87.4 5.52 0 10-4.03 10-9S17.52 2 12 2zm-3.5 11.5h-3v-1l2-2.5h-2v-1h3v1l-2 2.5h2zm2 0h-1v-4.5h1zm4 0h-1v-.3a1.6 1.6 0 1 1 0-2.9v-.3h1zm2.6 0a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2z"/></svg>'
+};
+
+function withUtm(url, content){
+  try{
+    const u = new URL(url);
+    if(!/zalo\.me|tiktok\.com/.test(u.hostname)){
+      u.searchParams.set("utm_source", CONFIG.utmSource);
+      u.searchParams.set("utm_medium", "bio");
+      u.searchParams.set("utm_content", content);
+    }
+    return u.toString();
+  }catch(e){ return url; }
+}
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+const linksEl = document.getElementById("links");
+let shownSecondaryTitle = false;
+CONFIG.links.filter(l => l.url).forEach((l, i) => {
+  if(!l.primary && !shownSecondaryTitle){
+    const t = document.createElement("div");
+    t.className = "section-title"; t.textContent = "Kết nối với mình";
+    linksEl.appendChild(t); shownSecondaryTitle = true;
+  }
+  const a = document.createElement("a");
+  a.className = "btn" + (l.primary ? " primary" : "") + (l.live ? " live" : "");
+  a.href = withUtm(l.url, l.id);
+  a.target = "_blank"; a.rel = "noopener";
+  a.dataset.id = l.id;
+  a.innerHTML =
+    '<span class="ico">' + l.icon + '</span>' +
+    '<span class="txt"><strong>' + esc(l.title) + (l.tag ? '<span class="badge">' + esc(l.tag) + '</span>' : '') + '</strong>' +
+    (l.sub ? '<small>' + esc(l.sub) + '</small>' : '') + '</span>' +
+    '<span class="arrow">›</span>';
+  linksEl.appendChild(a);
+});
+
+const socialEl = document.getElementById("social");
+Object.entries(CONFIG.social).forEach(([k, url]) => {
+  if(!url || !ICONS[k]) return;
+  const a = document.createElement("a");
+  a.href = url; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("aria-label", k);
+  a.innerHTML = ICONS[k];
+  socialEl.appendChild(a);
+});
+
+document.getElementById("handleLink").href = CONFIG.tiktok;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Đồng hồ live theo giờ Việt Nam (UTC+7) */
+function updateLive(){
+  const now = new Date();
+  const vn = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+  const mins = vn.getHours() * 60 + vn.getMinutes();
+  const start = CONFIG.liveHour * 60, end = start + CONFIG.liveDurationMin;
+  const pill = document.getElementById("livePill"), txt = document.getElementById("liveText");
+  if(mins >= start && mins < end){
+    pill.classList.add("on"); txt.textContent = "ĐANG LIVE · Vào xem ngay!";
+  }else{
+    pill.classList.remove("on");
+    let diff = start - mins; if(diff <= 0) diff += 1440;
+    const h = Math.floor(diff / 60), m = diff % 60;
+    txt.textContent = "LIVE " + CONFIG.liveHour + "h · còn " + (h ? h + " giờ " : "") + m + " phút";
+  }
+}
+updateLive(); setInterval(updateLive, 30000);
+</script>
+</body>
+</html>
