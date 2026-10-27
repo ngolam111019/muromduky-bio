@@ -184,7 +184,7 @@ const CONFIG = {
   links: [
     { primary: true, icon: "🎁", title: "Cẩm nang làm video AI", tag: "FREE",
       sub: "Chọn ngách, viết kịch bản, làm video trên Google Flow",
-      url: "https://zalo.me/g/ojbfwarygs3vrfgrymt8", id: "guide" },
+      url: "guide.html", id: "guide" },
 
     { icon: "💬", title: "Nhóm Zalo học làm video AI",
       sub: "Hỏi đáp, chia sẻ prompt, nhận tài liệu mới",
@@ -243,7 +243,7 @@ CONFIG.links.filter(l => l.url).forEach((l, i) => {
   const a = document.createElement("a");
   a.className = "btn" + (l.primary ? " primary" : "") + (l.live ? " live" : "");
   a.href = withUtm(l.url, l.id);
-  a.target = "_blank"; a.rel = "noopener";
+  if(a.host !== location.host){ a.target = "_blank"; a.rel = "noopener"; }   // trang trong site mở cùng tab
   a.dataset.id = l.id;
   a.innerHTML =
     '<span class="ico">' + l.icon + '</span>' +
@@ -337,6 +337,7 @@ if(IN_APP){
     const a = e.target.closest("a[href]");
     if(!a || a.closest(".sheet") || a.id === "handleLink") return;
     if(/tiktok\.com/i.test(a.href)) return;            // link TikTok vẫn mở được trong TikTok
+    if(a.host === location.host) return;               // trang trong site (cẩm nang) mở được trong TikTok
     e.preventDefault();
     history.replaceState(null, "", pageUrl(a.dataset.id || ""));
     openSheet(a);

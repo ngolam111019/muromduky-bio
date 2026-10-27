@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cẩm nang làm video hoạt hình AI · @muromduky</title>
+<meta name="description" content="Cẩm nang miễn phí: tự làm series hoạt hình AI một mình, từ chọn ngách, viết kịch bản đến làm video trên Google Flow và đăng TikTok.">
+<meta name="theme-color" content="#0b1d2e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cẩm nang làm video hoạt hình AI (miễn phí) 🎁">
+<meta property="og:description" content="7 phần, đọc khoảng 30 phút. Có ảnh hướng dẫn từng bước và prompt mẫu để copy.">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1d2e; --bg2:#0f2a40; --card:rgba(255,255,255,.06); --card-b:rgba(255,255,255,.12);
+    --text:#f4f1e8; --muted:#a9b8c6; --gold:#f5b942; --gold-2:#ffd977; --red:#ff4d5a; --sea:#3fd2c7; --green:#21c07a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  html,body{background:var(--bg)}
+  body{
+    font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--text); min-height:100vh; line-height:1.55;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #17435f 0%, transparent 60%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px 48px}
+
+  /* THANH TIẾN ĐỘ */
+  .topbar{position:sticky;top:0;z-index:40;margin:0 -16px;padding:10px 16px;display:flex;align-items:center;gap:12px;
+    background:rgba(11,29,46,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--card-b)}
+  .topbar .back{color:var(--sea);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap}
+  .pbar{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+  .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .4s ease}
+  .pcount{font-size:13px;font-weight:700;white-space:nowrap}
+
+  /* MỞ ĐẦU */
+  .intro{padding:28px 0 8px;text-align:center}
+  .kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);
+    background:rgba(245,185,66,.12);border-radius:99px;padding:5px 12px}
+  .intro h1{margin-top:14px;font-size:28px;font-weight:800;line-height:1.2;letter-spacing:-.4px}
+  .intro h1 span{color:var(--gold)}
+  .intro p{margin:12px auto 0;max-width:460px;color:var(--muted);font-size:15.5px}
+  .meta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .meta span{font-size:13px;font-weight:600;background:var(--card);border:1px solid var(--card-b);border-radius:99px;padding:6px 12px}
+
+  /* KẾT QUẢ (FOMO) */
+  .proof{margin-top:28px;background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:20px 16px}
+  .proof h2{font-size:19px;font-weight:800;text-align:center}
+  .proof .when{text-align:center;color:var(--muted);font-size:13px;margin-top:4px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+  .stat{background:rgba(255,255,255,.05);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat b{display:block;font-size:24px;font-weight:800;color:var(--gold-2);line-height:1.15}
+  .stat small{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
+  .gallery{display:flex;gap:10px;overflow-x:auto;margin:16px -16px 0;padding:0 16px 6px;scroll-snap-type:x mandatory}
+  .gallery figure{flex:0 0 62%;scroll-snap-align:start}
+  .disclaimer{margin-top:12px;font-size:12.5px;color:var(--muted);text-align:center}
+
+  /* ĐỌC TIẾP */
+  .resume{display:flex;align-items:center;gap:12px;margin-top:20px;padding:14px 16px;border-radius:16px;text-decoration:none;color:#06210f;
+    background:var(--green);font-weight:700}
+  .resume[hidden]{display:none}
+  .resume span{margin-left:auto;font-size:20px}
+
+  /* DANH SÁCH PHẦN */
+  .toc-title{margin:32px 2px 12px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+  .lesson{background:var(--card);border:1px solid var(--card-b);border-radius:18px;margin-bottom:12px;overflow:hidden}
+  .lesson[open]{border-color:rgba(245,185,66,.45)}
+  .lesson summary{list-style:none;display:flex;align-items:center;gap:14px;padding:16px;cursor:pointer;min-height:72px}
+  .lesson summary::-webkit-details-marker{display:none}
+  .num{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:rgba(255,255,255,.08)}
+  .lesson.done .num{background:var(--green);color:#06210f}
+  .lesson.locked .num{background:rgba(255,255,255,.05);color:var(--muted)}
+  .st{flex:1;min-width:0}
+  .st b{display:block;font-size:16px;font-weight:700;line-height:1.3}
+  .st small{display:block;margin-top:3px;font-size:13px;color:var(--muted)}
+  .chev{color:var(--muted);font-size:18px;transition:transform .2s}
+  .lesson[open] .chev{transform:rotate(90deg)}
+  .lesson.locked .chev{transform:none}
+
+  /* NỘI DUNG BÀI */
+  .body{padding:4px 18px 20px;font-size:16.5px;line-height:1.7}
+  .body > * + *{margin-top:14px}
+  .body h3{margin-top:26px;font-size:18px;font-weight:800;line-height:1.35;color:var(--gold-2)}
+  .body ul,.body ol{padding-left:22px}
+  .body li + li{margin-top:6px}
+  .body b{color:#fff}
+  .body a{color:var(--sea)}
+  .body table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.5}
+  .body th,.body td{text-align:left;vertical-align:top;padding:9px 8px;border-bottom:1px solid var(--card-b)}
+  .body th{color:var(--muted);font-weight:600;font-size:13px}
+  .tbl{overflow-x:auto}
+
+  .box{border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.6}
+  .box.tip{background:rgba(63,210,199,.1);border-left:4px solid var(--sea)}
+  .box.warn{background:rgba(245,185,66,.1);border-left:4px solid var(--gold)}
+  .box.todo{background:rgba(255,77,90,.1);border:2px dashed var(--red);color:#ffc9cd}
+
+  .step{display:flex;gap:12px}
+  .step .n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--gold);color:#1b1405;display:grid;place-items:center;font-weight:800;font-size:14px;margin-top:2px}
+  .step > div{flex:1;min-width:0}
+
+  .prompt{position:relative;background:#06121d;border:1px solid var(--card-b);border-radius:14px;padding:14px 14px 14px}
+  .prompt .lbl{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .prompt pre{white-space:pre-wrap;word-break:break-word;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dfe7ee}
+  .copy{margin-top:10px;border:0;border-radius:10px;padding:9px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;background:var(--gold);color:#1b1405}
+
+  /* ẢNH */
+  .shot{margin:0}
+  .shot img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--card-b);cursor:zoom-in;background:#06121d}
+  .shot figcaption{margin-top:6px;font-size:13px;color:var(--muted);text-align:center}
+  .shot.missing img{display:none}
+  .shot.missing::before{content:"🖼 Ảnh sẽ có ở đây\A" attr(data-file);white-space:pre-wrap;display:grid;place-items:center;text-align:center;
+    min-height:160px;padding:16px;border-radius:12px;border:2px dashed var(--card-b);color:var(--muted);font-size:13px}
+
+  .done-btn{display:block;width:100%;margin-top:24px;border:0;border-radius:14px;padding:15px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+    background:var(--green);color:#06210f}
+  .lesson.done .done-btn{background:rgba(255,255,255,.08);color:var(--muted);font-weight:600;font-size:14px}
+
+  /* CỔNG EMAIL */
+  .gate{margin:4px 0 16px;border-radius:20px;padding:22px 18px;background:linear-gradient(160deg,#17435f 0%,#0f2a40 100%);border:1px solid rgba(245,185,66,.45)}
+  .gate[hidden]{display:none}
+  .gate h2{font-size:21px;font-weight:800;line-height:1.3}
+  .gate p{margin-top:8px;color:var(--muted);font-size:15px}
+  .gate ul{margin:12px 0 0 0;list-style:none;font-size:14.5px}
+  .gate li{margin-top:4px}
+  .gate form{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .gate input{width:100%;border:1px solid var(--card-b);background:rgba(0,0,0,.25);color:var(--text);border-radius:12px;padding:14px;font:inherit;font-size:16px}
+  .gate input:focus{outline:2px solid var(--gold);border-color:transparent}
+  .gate .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .gate button{border:0;border-radius:14px;padding:15px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);color:#1b1405}
+  .gate button:disabled{opacity:.6}
+  .gate .err{color:#ff9aa2;font-size:14px;min-height:0}
+  .gate .privacy{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* HOÀN THÀNH + TRÀ SỮA */
+  .finish{margin-top:24px;text-align:center;border-radius:20px;padding:24px 18px;background:rgba(33,192,122,.12);border:1px solid rgba(33,192,122,.5)}
+  .finish[hidden]{display:none}
+  .finish .big{font-size:44px}
+  .finish h2{font-size:21px;font-weight:800;margin-top:6px}
+  .finish p{margin-top:8px;color:var(--muted)}
+  .cta{display:flex;align-items:center;gap:12px;margin-top:12px;padding:14px 16px;border-radius:14px;text-decoration:none;color:var(--text);
+    background:var(--card);border:1px solid var(--card-b);text-align:left;font-weight:700}
+  .cta small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+  .cta .ar{margin-left:auto;color:var(--muted);font-size:20px}
+  .inapp-note{display:none;margin-top:8px;font-size:13px;color:var(--gold-2)}
+  .inapp .inapp-note{display:block}
+
+  .tea{margin-top:24px;text-align:center;border-radius:20px;padding:24px 18px;background:var(--card);border:1px solid var(--card-b)}
+  .tea .big{font-size:44px}
+  .tea h2{font-size:20px;font-weight:800;margin-top:4px}
+  .tea p{margin-top:8px;color:var(--muted);font-size:15px}
+  .amts{display:flex;justify-content:center;gap:8px;margin-top:16px}
+  .amts button{border:1px solid var(--card-b);background:transparent;color:var(--text);border-radius:99px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}
+  .amts button.on{background:var(--gold);border-color:var(--gold);color:#1b1405}
+  .qr{margin:16px auto 0;width:240px;max-width:100%;background:#fff;border-radius:16px;padding:10px}
+  .qr img{display:block;width:100%;height:auto}
+  .bankline{margin-top:12px;font-size:14.5px}
+  .bankline b{font-size:16px}
+  .tea .copy{background:rgba(255,255,255,.1);color:var(--text)}
+
+  footer{margin-top:28px;text-align:center;font-size:11.5px;color:#7f92a3;line-height:1.6}
+  footer a{color:inherit}
+
+  /* PHÓNG TO ẢNH */
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+  .lb.open{display:flex}
+  .lb img{max-width:100%;max-height:100%;border-radius:8px}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:110;transform:translate(-50%,40px);opacity:0;transition:.25s;background:#fff;color:#14202b;
+    border-radius:12px;padding:12px 16px;font-size:14.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100% - 32px);text-align:center}
+  .toast.show{transform:translate(-50%,0);opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="back" href="./">‹ Trang chính</a>
+    <div class="pbar" aria-hidden="true"><i id="pbar"></i></div>
+    <span class="pcount" id="pcount">0/7</span>
+  </div>
+
+  <header class="intro">
+    <span class="kicker">🎁 Cẩm nang miễn phí</span>
+    <h1>Tự làm series <span>hoạt hình AI</span> một mình</h1>
+    <p>Đây là cách Lâm làm kênh @muromduky, từ con số 0. Không cần biết vẽ, không cần biết dựng phim, chỉ cần điện thoại hoặc máy tính.</p>
+    <div class="meta"><span>📚 7 phần</span><span id="totalTime">⏱ ~30 phút đọc</span><span>🖼 Có ảnh từng bước</span></div>
+  </header>
+
+  <!-- ===== KẾT QUẢ THẬT: số liệu sửa trong CONFIG.stats, ảnh đặt ở assets/guide/ ===== -->
+  <section class="proof">
+    <h2>📈 Kết quả thật của kênh</h2>
+    <p class="when" id="statsWhen"></p>
+    <div class="stats" id="stats"></div>
+    <div class="gallery">
+      <figure class="shot" data-file="assets/guide/ket-qua-1.jpg"><img src="assets/guide/ket-qua-1.jpg" alt="Thu nhập từ kênh" loading="lazy"><figcaption>Thu nhập</figcaption></figure>
+      <figure class="shot" data-file="assets/guide/ket-qua-2.jpg"><img src="assets/guide/ket-qua-2.jpg" alt="Lượt xem của kênh" loading="lazy"><figcaption>Lượt xem</figcaption></figure>
+      <figure class="shot" data-file="assets/guide/ket-qua-3.jpg"><img src="assets/guide/ket-qua-3.jpg" alt="Follower và lượt thích" loading="lazy"><figcaption>Follower và lượt thích</figcaption></figure>
+    </div>
+    <p class="disclaimer">Đây là kết quả của riêng Lâm. Kết quả của bạn tùy vào ngách, sự đều đặn và một chút may mắn.</p>
+  </section>
+
+  <a class="resume" id="resume" href="#" hidden>▶ <span id="resumeText">Đọc tiếp</span><span>›</span></a>
+
+  <div class="toc-title">Nội dung cẩm nang</div>
+  <main id="lessons">
+
+    <!-- ================= PHẦN 1 (đọc miễn phí, không cần email) ================= -->
+    <details class="lesson" id="p1" data-free>
+      <summary><span class="num">1</span><span class="st"><b>Vì sao video hoạt hình AI dễ có view?</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <p>Người xem lướt TikTok rất nhanh. Họ chỉ dừng lại khi thấy một thứ <b>vừa quen vừa lạ</b>.</p>
+        <ul>
+          <li><b>Quen:</b> nhân vật ai cũng biết, địa điểm ai cũng từng nghe (Vịnh Hạ Long, phố cổ Hội An, chợ Bến Thành).</li>
+          <li><b>Lạ:</b> đặt hai thứ đó cạnh nhau. Luffy ăn phở ở Hà Nội là thứ chưa ai từng thấy.</li>
+        </ul>
+        <p>Chỉ cần 3 giây đầu khiến người xem tò mò là video đã thắng một nửa.</p>
+
+        <h3>Làm thành series, không làm video lẻ</h3>
+        <p>Mỗi tập là một địa điểm mới. Xem xong tập này, người xem bấm follow để chờ tập sau. Họ còn tự gợi ý trong bình luận: "Tập sau đi Đà Lạt nha!". Thế là bạn có ý tưởng miễn phí, và video có thêm tương tác.</p>
+
+        <h3>Một người làm được</h3>
+        <p>Trước đây làm phim hoạt hình cần cả đội họa sĩ. Bây giờ AI làm phần nặng nhất. Việc của bạn chỉ còn 3 thứ:</p>
+        <ol>
+          <li>Nghĩ ý tưởng.</li>
+          <li>Ra lệnh cho AI (gọi là viết <b>prompt</b>).</li>
+          <li>Chọn bản đẹp nhất và ghép lại.</li>
+        </ol>
+
+        <div class="box todo">✍️ <b>Lâm điền:</b> kể ngắn 2–3 câu bạn bắt đầu kênh khi nào, video đầu tiên được bao nhiêu view, video nào bùng nổ đầu tiên.</div>
+
+        <h3>Bạn sẽ học được gì trong 6 phần tiếp theo</h3>
+        <ul>
+          <li>Chọn ngách và nhân vật sao cho làm được lâu dài</li>
+          <li>Bộ công cụ cần có, cái nào miễn phí, cái nào tốn tiền</li>
+          <li>Prompt mẫu để AI viết kịch bản giúp bạn (copy là dùng được)</li>
+          <li>Làm video trên Google Flow, có ảnh chụp từng bước</li>
+          <li>Dựng bằng CapCut và đăng TikTok sao cho dễ lên xu hướng</li>
+          <li>Các cách biến lượt xem thành tiền</li>
+        </ul>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= CỔNG EMAIL ================= -->
+    <section class="gate" id="gate">
+      <h2>🔓 Mở khóa 6 phần còn lại</h2>
+      <p>Để lại tên và email là đọc được ngay. Lâm cũng gửi link cẩm nang vào email để bạn đọc lại trên máy khác.</p>
+      <ul>
+        <li>✅ Prompt mẫu viết kịch bản và prompt video</li>
+        <li>✅ Hướng dẫn Google Flow có ảnh từng bước</li>
+        <li>✅ Bảng lỗi thường gặp và cách sửa</li>
+        <li>✅ Kế hoạch 30 ngày cho người mới</li>
+      </ul>
+      <form id="gateForm" novalidate>
+        <input id="fName" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" required>
+        <input id="fEmail" name="email" type="email" placeholder="Email của bạn" autocomplete="email" inputmode="email" required>
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="err" id="fErr"></p>
+        <button type="submit" id="fBtn">Mở khóa miễn phí 🔓</button>
+        <p class="privacy">Email chỉ dùng để gửi tài liệu và mẹo làm video. Không spam, bạn có thể nhắn để hủy bất cứ lúc nào.</p>
+      </form>
+    </section>
+
+    <!-- ================= PHẦN 2 ================= -->
+    <details class="lesson" id="p2">
+      <summary><span class="num">2</span><span class="st"><b>Chọn ngách và nhân vật</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <p>Ngách là "kênh của bạn nói về cái gì". Chọn đúng ngách thì làm 30 tập vẫn còn ý tưởng. Chọn sai thì làm 5 tập đã bí.</p>
+
+        <h3>Công thức: Nhân vật + Bối cảnh + Chuỗi</h3>
+        <div class="tbl"><table>
+          <tr><th>Nhân vật</th><th>Bối cảnh</th><th>Chuỗi (mỗi tập là gì)</th></tr>
+          <tr><td>Băng Mũ Rơm</td><td>Việt Nam</td><td>Mỗi tập một địa danh</td></tr>
+          <tr><td>Chú mèo hoạt hình</td><td>Món ăn Việt</td><td>Mỗi tập review một món</td></tr>
+          <tr><td>Ông bà hoạt hình</td><td>Làng quê xưa</td><td>Mỗi tập một chuyện ngày xưa</td></tr>
+          <tr><td>Nhân vật do bạn tự tạo</td><td>Văn phòng</td><td>Mỗi tập một tình huống hài</td></tr>
+        </table></div>
+
+        <h3>3 câu hỏi để kiểm tra ngách</h3>
+        <ol>
+          <li><b>Lướt qua 3 giây có hiểu không?</b> Nếu phải giải thích thì người xem đã lướt đi rồi.</li>
+          <li><b>Có nghĩ ra được 30 tập không?</b> Thử viết nhanh 30 tên tập. Viết không nổi 15 thì nên đổi ngách.</li>
+          <li><b>Có người đang xem chủ đề này không?</b> Gõ chủ đề vào ô tìm kiếm TikTok, xem các video cùng loại có nhiều view không.</li>
+        </ol>
+
+        <div class="box warn">⚠️ <b>Lưu ý bản quyền:</b> nhân vật nổi tiếng (như băng Mũ Rơm) giúp hút view nhanh, nhưng chúng thuộc bản quyền của người khác. Video có thể bị gỡ hoặc khó bật kiếm tiền. Nếu muốn làm lâu dài, hãy dùng nhân vật nổi tiếng để học nghề, rồi dần xây <b>nhân vật của riêng bạn</b>.</div>
+
+        <h3>Tạo nhân vật của riêng bạn</h3>
+        <p>Nhờ AI vẽ nhân vật, rồi giữ lại 2–3 ảnh đẹp nhất làm <b>ảnh gốc</b>. Ở Phần 5, bạn sẽ đưa ảnh gốc này vào Google Flow để nhân vật trông giống nhau trong mọi cảnh.</p>
+        <div class="prompt"><span class="lbl">Prompt mẫu tạo nhân vật</span><pre>Vẽ một nhân vật hoạt hình 3D phong cách Pixar: [mô tả: ví dụ "chú mèo cam mập, đội nón lá, đeo khăn rằn"]. Đứng thẳng, nhìn thẳng, toàn thân, nền trắng trơn, ánh sáng dịu. Vẽ 3 góc: chính diện, nghiêng, sau lưng.</pre><button class="copy" type="button">📋 Sao chép</button></div>
+        <figure class="shot" data-file="assets/guide/p2-nhan-vat.jpg"><img src="assets/guide/p2-nhan-vat.jpg" alt="Ví dụ ảnh gốc nhân vật" loading="lazy"><figcaption>Ví dụ ảnh gốc nhân vật</figcaption></figure>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= PHẦN 3 ================= -->
+    <details class="lesson" id="p3">
+      <summary><span class="num">3</span><span class="st"><b>Chuẩn bị công cụ</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <p>Chỉ cần 3 công cụ. Bạn không cần cài phần mềm nặng, dùng trên trình duyệt hoặc điện thoại là được.</p>
+        <div class="tbl"><table>
+          <tr><th>Công cụ</th><th>Dùng để</th><th>Chi phí</th></tr>
+          <tr><td><b>Gemini</b> (hoặc ChatGPT)</td><td>Viết kịch bản và prompt</td><td>Bản miễn phí là đủ</td></tr>
+          <tr><td><b>Google Flow</b><br><small>labs.google/flow</small></td><td>Biến prompt thành video</td><td>Cần gói Google AI trả phí, mỗi lần tạo video trừ một ít credit</td></tr>
+          <tr><td><b>CapCut</b></td><td>Ghép cảnh, thêm nhạc, phụ đề</td><td>Miễn phí</td></tr>
+        </table></div>
+
+        <div class="box todo">✍️ <b>Lâm điền:</b> bạn đang dùng gói Google AI nào, mỗi tháng tốn khoảng bao nhiêu tiền, 1 video tốn khoảng bao nhiêu credit.</div>
+
+        <figure class="shot" data-file="assets/guide/p3-flow-trang-chu.jpg"><img src="assets/guide/p3-flow-trang-chu.jpg" alt="Trang chủ Google Flow" loading="lazy"><figcaption>Trang chủ Google Flow</figcaption></figure>
+
+        <h3>Sắp xếp thư mục từ đầu</h3>
+        <p>Mỗi tập tạo một thư mục riêng, ví dụ <b>Tap-05-Hoi-An</b>, trong đó có: kịch bản, các clip đã tải về, và video hoàn chỉnh. Làm đến tập 20 bạn sẽ thấy cách này tiết kiệm rất nhiều thời gian tìm file.</p>
+
+        <div class="box tip">💡 Lưu sẵn đoạn <b>mô tả nhân vật</b> (sẽ viết ở Phần 4) vào ghi chú điện thoại. Bạn sẽ copy đoạn này rất nhiều lần.</div>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= PHẦN 4 ================= -->
+    <details class="lesson" id="p4">
+      <summary><span class="num">4</span><span class="st"><b>Viết kịch bản 30–60 giây với AI</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <p>Google Flow tạo mỗi lần một clip ngắn khoảng 8 giây. Vì vậy một video 40 giây sẽ gồm khoảng <b>5 cảnh</b>.</p>
+
+        <h3>Khung kịch bản 4 nhịp</h3>
+        <div class="step"><span class="n">1</span><div><b>Mở đầu gây tò mò (0–3 giây).</b> Cảnh lạ nhất đặt lên đầu. Ví dụ: Luffy cắn một miếng bánh mì rồi trợn mắt.</div></div>
+        <div class="step"><span class="n">2</span><div><b>Hành trình (2–3 cảnh).</b> Nhân vật đi, ngắm, làm gì đó ở địa điểm.</div></div>
+        <div class="step"><span class="n">3</span><div><b>Bất ngờ.</b> Một chuyện vui xảy ra: bị lạc, ăn cay quá, bị cô bán hàng mắng.</div></div>
+        <div class="step"><span class="n">4</span><div><b>Kết và hẹn tập sau.</b> "Tập sau đi đâu đây? Bình luận cho băng biết nhé!"</div></div>
+
+        <h3>Bước 1: nhờ AI viết kịch bản</h3>
+        <p>Mở Gemini, dán prompt dưới đây, thay phần trong ngoặc vuông:</p>
+        <div class="prompt"><span class="lbl">Prompt viết kịch bản</span><pre>Bạn là biên kịch phim hoạt hình ngắn cho TikTok.
+Viết kịch bản 40 giây, gồm 5 cảnh, mỗi cảnh 8 giây.
+Nhân vật: [tên và mô tả ngắn nhân vật]
+Địa điểm: [ví dụ: phố cổ Hội An buổi tối, đèn lồng]
+Khung: cảnh 1 gây tò mò ngay, cảnh 2–3 khám phá, cảnh 4 có chuyện bất ngờ hài hước, cảnh 5 kết và hỏi người xem tập sau đi đâu.
+Mỗi cảnh ghi: hình ảnh, hành động, lời thoại (ngắn, dưới 12 chữ, tiếng Việt).</pre><button class="copy" type="button">📋 Sao chép</button></div>
+
+        <h3>Bước 2: biến kịch bản thành prompt video</h3>
+        <p>Google Flow hiểu tiếng Anh tốt hơn. Gửi tiếp cho Gemini:</p>
+        <div class="prompt"><span class="lbl">Prompt chuyển sang prompt video</span><pre>Chuyển từng cảnh trên thành prompt tiếng Anh để tạo video bằng Google Flow (Veo).
+Mỗi prompt bắt đầu bằng đoạn mô tả nhân vật cố định này, giữ nguyên từng chữ:
+"[dán đoạn mô tả nhân vật]"
+Sau đó mô tả: bối cảnh, hành động, góc máy, ánh sáng, phong cách 3D animation, khung dọc 9:16.
+Lời thoại giữ nguyên tiếng Việt, đặt trong ngoặc kép.</pre><button class="copy" type="button">📋 Sao chép</button></div>
+
+        <div class="box tip">💡 <b>Bí quyết giữ nhân vật giống nhau:</b> viết một đoạn mô tả nhân vật thật chi tiết (màu tóc, quần áo, phụ kiện), rồi dán <b>y nguyên</b> đoạn đó vào đầu mọi prompt. Đổi một chữ thôi là AI có thể vẽ ra người khác.</div>
+
+        <h3>Ví dụ một prompt cảnh hoàn chỉnh</h3>
+        <div class="prompt"><span class="lbl">Ví dụ</span><pre>A cheerful young pirate with messy black hair, a straw hat, red open vest, blue shorts and sandals. He walks through Hoi An ancient town at night, colorful silk lanterns glowing above, holds a bánh mì and takes a big bite, eyes widen in surprise. Medium shot, slow camera follow, warm cinematic lighting, 3D animation style, vertical 9:16. He says: "Ngon quá trời!"</pre><button class="copy" type="button">📋 Sao chép</button></div>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= PHẦN 5 ================= -->
+    <details class="lesson" id="p5">
+      <summary><span class="num">5</span><span class="st"><b>Làm video trên Google Flow (từng bước)</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <div class="box warn">⚠️ Google cập nhật Flow khá thường xuyên. Nếu tên nút khác một chút so với hướng dẫn, hãy nhìn theo vị trí trong ảnh.</div>
+
+        <div class="step"><span class="n">1</span><div><b>Tạo dự án mới.</b> Vào <b>labs.google/flow</b>, đăng nhập tài khoản Google, bấm <b>New project</b>.</div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-1.jpg"><img src="assets/guide/p5-buoc-1.jpg" alt="Tạo dự án mới trên Flow" loading="lazy"><figcaption>Bấm New project</figcaption></figure>
+
+        <div class="step"><span class="n">2</span><div><b>Chọn cách tạo video.</b> Có 3 cách chính:
+          <ul>
+            <li><b>Text to Video:</b> chỉ dùng chữ. Nhanh nhưng nhân vật dễ bị khác nhau giữa các cảnh.</li>
+            <li><b>Ingredients to Video:</b> đưa ảnh gốc nhân vật vào. <b>Nên dùng cách này</b> để nhân vật giống nhau.</li>
+            <li><b>Frames to Video:</b> đưa ảnh khung hình đầu (và cuối), AI làm chuyển động ở giữa.</li>
+          </ul></div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-2.jpg"><img src="assets/guide/p5-buoc-2.jpg" alt="Chọn chế độ tạo video" loading="lazy"><figcaption>Chọn chế độ tạo video</figcaption></figure>
+
+        <div class="step"><span class="n">3</span><div><b>Tải ảnh gốc nhân vật lên</b> (ảnh bạn đã tạo ở Phần 2).</div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-3.jpg"><img src="assets/guide/p5-buoc-3.jpg" alt="Tải ảnh nhân vật" loading="lazy"><figcaption>Tải ảnh nhân vật</figcaption></figure>
+
+        <div class="step"><span class="n">4</span><div><b>Dán prompt cảnh 1</b>, chọn khung dọc <b>9:16</b> nếu có, rồi bấm tạo. Mỗi lần Flow cho ra vài bản để bạn chọn.</div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-4.jpg"><img src="assets/guide/p5-buoc-4.jpg" alt="Dán prompt và tạo video" loading="lazy"><figcaption>Dán prompt và bấm tạo</figcaption></figure>
+
+        <div class="step"><span class="n">5</span><div><b>Xem và chọn bản đẹp nhất.</b> Không ưng thì sửa prompt rồi tạo lại (xem bảng lỗi bên dưới).</div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-5.jpg"><img src="assets/guide/p5-buoc-5.jpg" alt="Chọn bản đẹp nhất" loading="lazy"><figcaption>Chọn bản đẹp nhất</figcaption></figure>
+
+        <div class="step"><span class="n">6</span><div><b>Làm lần lượt các cảnh còn lại</b>, mỗi cảnh một prompt.</div></div>
+
+        <div class="step"><span class="n">7</span><div><b>Tải từng clip về</b>, đặt tên theo thứ tự: <b>canh-1</b>, <b>canh-2</b>… để lúc ghép không bị lộn.</div></div>
+        <figure class="shot" data-file="assets/guide/p5-buoc-7.jpg"><img src="assets/guide/p5-buoc-7.jpg" alt="Tải clip về máy" loading="lazy"><figcaption>Tải clip về máy</figcaption></figure>
+
+        <div class="box todo">✍️ <b>Lâm điền:</b> thêm mẹo riêng của bạn khi dùng Flow (ví dụ: chọn chất lượng nào, mất bao lâu cho 1 tập, cách tiết kiệm credit).</div>
+
+        <h3>Lỗi thường gặp và cách sửa</h3>
+        <div class="tbl"><table>
+          <tr><th>Lỗi</th><th>Cách sửa</th></tr>
+          <tr><td>Nhân vật mỗi cảnh một khác</td><td>Dùng Ingredients với ảnh gốc, dán y nguyên đoạn mô tả nhân vật</td></tr>
+          <tr><td>Tay chân, ngón tay bị méo</td><td>Bớt hành động phức tạp, chọn góc máy xa hơn</td></tr>
+          <tr><td>Nhân vật nói sai lời thoại</td><td>Lời thoại ngắn lại (dưới 12 chữ), đặt trong ngoặc kép</td></tr>
+          <tr><td>Cảnh quá tối hoặc quá rối</td><td>Thêm "bright, clean background" và bớt chi tiết bối cảnh</td></tr>
+          <tr><td>Video bị khung ngang</td><td>Chọn tỉ lệ 9:16 trước khi tạo, hoặc cắt lại trong CapCut</td></tr>
+        </table></div>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= PHẦN 6 ================= -->
+    <details class="lesson" id="p6">
+      <summary><span class="num">6</span><span class="st"><b>Dựng bằng CapCut và đăng TikTok</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <h3>Dựng video trong CapCut</h3>
+        <div class="step"><span class="n">1</span><div>Tạo dự án mới, chọn các clip theo đúng thứ tự cảnh.</div></div>
+        <div class="step"><span class="n">2</span><div>Cắt bỏ phần đầu và cuối thừa của mỗi clip. Video càng gọn càng giữ chân người xem.</div></div>
+        <div class="step"><span class="n">3</span><div>Thêm nhạc hoặc âm thanh đang thịnh hành, để nhạc nhỏ hơn lời thoại.</div></div>
+        <div class="step"><span class="n">4</span><div>Bấm <b>Chú thích → Tạo tự động</b> để có phụ đề. Nhiều người xem mà không bật tiếng.</div></div>
+        <div class="step"><span class="n">5</span><div>Xuất video <b>1080p</b>, khung dọc 9:16.</div></div>
+        <figure class="shot" data-file="assets/guide/p6-capcut.jpg"><img src="assets/guide/p6-capcut.jpg" alt="Dựng video trong CapCut" loading="lazy"><figcaption>Dựng video trong CapCut</figcaption></figure>
+
+        <h3>Đăng lên TikTok</h3>
+        <ul>
+          <li><b>Caption:</b> một câu hỏi để người xem bình luận. Ví dụ: "Băng Mũ Rơm lạc ở Hội An 😂 Tập sau đi đâu nè?"</li>
+          <li><b>Hashtag:</b> 3–5 cái, gồm cả hashtag rộng (#hoathinh) và hẹp (#hoian).</li>
+          <li><b>Bật nhãn "Nội dung do AI tạo"</b> trong phần cài đặt khi đăng. TikTok yêu cầu điều này, và nó giúp kênh an toàn hơn.</li>
+          <li><b>Ghim một bình luận</b> dẫn người xem vào link ở hồ sơ.</li>
+          <li><b>Đăng đều</b>, cùng một khung giờ mỗi ngày, để người xem quen chờ.</li>
+        </ul>
+        <div class="box todo">✍️ <b>Lâm điền:</b> khung giờ đăng hiệu quả nhất với kênh của bạn, và mỗi ngày bạn đăng mấy video.</div>
+
+        <h3>Kiểm tra trước khi bấm Đăng</h3>
+        <ul>
+          <li>☐ 3 giây đầu có gây tò mò không?</li>
+          <li>☐ Nhân vật có giống nhau ở mọi cảnh không?</li>
+          <li>☐ Đã có phụ đề chưa?</li>
+          <li>☐ Đã bật nhãn nội dung AI chưa?</li>
+          <li>☐ Caption đã có câu hỏi cho người xem chưa?</li>
+        </ul>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+
+    <!-- ================= PHẦN 7 ================= -->
+    <details class="lesson" id="p7">
+      <summary><span class="num">7</span><span class="st"><b>Biến lượt xem thành thu nhập</b><small class="rt"></small></span><span class="chev">›</span></summary>
+      <div class="body">
+        <p>View chưa phải là tiền. Dưới đây là những cách phổ biến để kênh hoạt hình AI có thu nhập:</p>
+        <div class="tbl"><table>
+          <tr><th>Cách</th><th>Hợp với ai</th></tr>
+          <tr><td><b>Quà khi LIVE</b></td><td>Kênh đã có người xem quen, LIVE đều đặn</td></tr>
+          <tr><td><b>Nhận làm video theo yêu cầu</b></td><td>Shop, quán ăn, homestay cần video quảng cáo vui mắt</td></tr>
+          <tr><td><b>Tiếp thị liên kết</b> (TikTok Shop)</td><td>Nhân vật "dùng thử" sản phẩm trong video</td></tr>
+          <tr><td><b>Chương trình trả tiền cho nhà sáng tạo</b></td><td>Điều kiện khác nhau theo từng nước, xem trong mục Công cụ cho nhà sáng tạo trên TikTok</td></tr>
+        </table></div>
+
+        <div class="box todo">✍️ <b>Lâm điền:</b> nguồn nào mang lại thu nhập nhiều nhất cho kênh của bạn, và bạn bắt đầu có thu nhập sau bao lâu.</div>
+
+        <h3>Kế hoạch 30 ngày cho người mới</h3>
+        <div class="tbl"><table>
+          <tr><th>Tuần</th><th>Việc cần làm</th></tr>
+          <tr><td>1</td><td>Chọn ngách, tạo nhân vật, làm xong 3 video đầu tiên</td></tr>
+          <tr><td>2</td><td>Đăng mỗi ngày 1 video. Ghi lại video nào được nhiều view nhất</td></tr>
+          <tr><td>3</td><td>Làm thêm nhiều video giống video tốt nhất. Đọc bình luận để lấy ý tưởng</td></tr>
+          <tr><td>4</td><td>Thử LIVE hoặc nhận video đầu tiên cho một shop quen</td></tr>
+        </table></div>
+        <div class="box tip">💡 Đừng bỏ cuộc ở video thứ 10. Phần lớn các kênh chỉ bắt đầu có video bùng nổ sau vài chục video, khi bạn đã quen tay và hiểu người xem thích gì.</div>
+        <button class="done-btn" type="button">✅ Mình đã đọc xong phần này</button>
+      </div>
+    </details>
+  </main>
+
+  <!-- ================= HOÀN THÀNH ================= -->
+  <section class="finish" id="finish" hidden>
+    <div class="big">🎉</div>
+    <h2>Chúc mừng, bạn đã đọc xong!</h2>
+    <p>Giờ là lúc bắt tay làm video đầu tiên. Có gì vướng, vào nhóm hỏi Lâm nhé.</p>
+    <a class="cta" id="ctaZalo" href="#" target="_blank" rel="noopener">💬<span>Vào nhóm Zalo học làm video AI<small>Hỏi đáp, chia sẻ prompt, nhận tài liệu mới</small></span><span class="ar">›</span></a>
+    <a class="cta" id="ctaService" href="#" target="_blank" rel="noopener">📩<span>Cần video quảng cáo hoạt hình?<small>Nhắn Zalo cho Lâm để báo giá</small></span><span class="ar">›</span></a>
+    <p class="inapp-note">Đang xem trong TikTok? Link Zalo không mở được ở đây. Bấm ⋯ ở góc trên bên phải, chọn Mở trong trình duyệt.</p>
+  </section>
+
+  <!-- ================= TRÀ SỮA ================= -->
+  <section class="tea" id="tea">
+    <div class="big">🧋</div>
+    <h2>Tài liệu này miễn phí 100%</h2>
+    <p>Nếu thấy hay và có ích, bạn có thể mời Lâm một ly trà sữa full topping để có thêm động lực viết tiếp nhé!</p>
+    <div class="amts" id="amts"></div>
+    <div class="qr" id="qrBox"><img id="qrImg" alt="Mã QR chuyển khoản"></div>
+    <p class="bankline" id="bankLine"></p>
+    <button class="copy" type="button" id="copyAcc">📋 Sao chép số tài khoản</button>
+  </section>
+
+  <footer>
+    Nội dung fan-made, tạo bằng AI, không vì mục đích thương mại.<br>
+    One Piece © Eiichiro Oda / Shueisha / Toei Animation.<br>
+    © <span id="year"></span> Lâm Solobiz
+  </footer>
+</div>
+
+<div class="lb" id="lb"><img id="lbImg" alt=""></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CẤU HÌNH: chỉ cần sửa phần này
+   ========================================================= */
+const CONFIG = {
+  // Link Web App của Google Apps Script (xem README, mục 5). Để "" thì chỉ lưu trên trình duyệt.
+  sheetUrl: "https://script.google.com/macros/s/AKfycbwc_y56yU1lhV45giRSuF6ujHCLDwGovibc1QUo1Hz9uYUuDPhxweDWs4DfkN1shsUgNQ/exec",
+
+  // Số liệu kết quả thật của kênh
+  statsWhen: "Cập nhật tháng 10/2026",
+  stats: [
+    { value: "—", label: "Follower" },
+    { value: "—", label: "Lượt thích" },
+    { value: "—", label: "Lượt xem" },
+    { value: "—", label: "Thu nhập" },
+  ],
+
+  zaloGroup: "https://zalo.me/g/ojbfwarygs3vrfgrymt8",
+  zaloService: "https://zalo.me/0988776624",
+
+  // Mời trà sữa: bank là mã ngân hàng theo VietQR (ví dụ "vcb", "mb", "tcb"). Để account "" thì ẩn mã QR.
+  tea: {
+    bank: "", bankName: "", account: "", owner: "",
+    amounts: [25000, 50000, 100000],
+    note: "Moi Lam tra sua"
+  }
+};
+/* ======================= HẾT CẤU HÌNH ======================= */
+
+const UA = navigator.userAgent || "";
+const IN_APP = /musical_ly|Bytedance|BytedanceWebview|TikTok|trill|FBAN|FBAV|Instagram/i.test(UA);
+if(IN_APP) document.body.classList.add("inapp");
+
+/* Lưu trên trình duyệt (bọc try/catch vì trình duyệt trong app có thể chặn) */
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("mrd_" + k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("mrd_" + k, JSON.stringify(v)); }catch(e){} }
+};
+
+function send(data){
+  if(!CONFIG.sheetUrl) return;
+  try{
+    fetch(CONFIG.sheetUrl, { method: "POST", mode: "no-cors", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
+  }catch(e){}
+}
+
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+function source(){
+  const p = new URLSearchParams(location.search);
+  if(p.get("utm_source")) return p.get("utm_source");
+  if(/musical_ly|Bytedance|TikTok|trill/i.test(UA)) return "tiktok-app";
+  if(/FBAN|FBAV/i.test(UA)) return "facebook-app";
+  if(/Instagram/i.test(UA)) return "instagram-app";
+  return document.referrer ? new URL(document.referrer).hostname : "truc-tiep";
+}
+
+/* ----- Kết quả kênh ----- */
+document.getElementById("statsWhen").textContent = CONFIG.statsWhen;
+document.getElementById("stats").innerHTML = CONFIG.stats.map(s =>
+  '<div class="stat"><b></b><small></small></div>').join("");
+document.querySelectorAll("#stats .stat").forEach((el, i) => {
+  el.querySelector("b").textContent = CONFIG.stats[i].value;
+  el.querySelector("small").textContent = CONFIG.stats[i].label;
+});
+
+/* ----- Ảnh: hiện khung chờ nếu chưa có ảnh, bấm để phóng to ----- */
+document.querySelectorAll(".shot img").forEach(img => {
+  const miss = () => img.closest(".shot").classList.add("missing");
+  img.addEventListener("error", miss);
+  if(img.complete && img.naturalWidth === 0 && img.getAttribute("src")) miss();
+  img.addEventListener("click", () => {
+    document.getElementById("lbImg").src = img.src;
+    document.getElementById("lb").classList.add("open");
+  });
+});
+document.getElementById("lb").addEventListener("click", e => e.currentTarget.classList.remove("open"));
+
+/* ----- Nút sao chép prompt ----- */
+function copyText(s, btn, okText){
+  const done = () => { const old = btn.textContent; btn.textContent = okText || "✅ Đã sao chép"; setTimeout(() => btn.textContent = old, 1800); };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(s).then(done).catch(fallback);
+  } else fallback();
+  function fallback(){
+    const ta = document.createElement("textarea"); ta.value = s; ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, s.length);
+    try{ document.execCommand("copy"); done(); }catch(e){ prompt("Sao chép đoạn này:", s); }
+    ta.remove();
+  }
+}
+document.querySelectorAll(".prompt .copy").forEach(b =>
+  b.addEventListener("click", () => copyText(b.parentElement.querySelector("pre").textContent, b)));
+
+/* ----- Thời gian đọc mỗi phần (khoảng 200 chữ/phút, mỗi ảnh thêm 10 giây) ----- */
+const lessons = [...document.querySelectorAll(".lesson")];
+let totalMin = 0;
+lessons.forEach(l => {
+  const words = l.querySelector(".body").textContent.trim().split(/\s+/).length;
+  const imgs = l.querySelectorAll(".shot").length;
+  const min = Math.max(1, Math.round(words / 200 + imgs / 6));
+  totalMin += min;
+  l.dataset.min = min;
+});
+document.getElementById("totalTime").textContent = "⏱ ~" + totalMin + " phút đọc";
+
+/* ----- Đăng ký email, khóa/mở khóa ----- */
+let user = store.get("user", null);
+let done = store.get("done", []);
+const gate = document.getElementById("gate");
+
+function isLocked(l){ return !user && !l.hasAttribute("data-free"); }
+
+function render(){
+  lessons.forEach(l => {
+    const locked = isLocked(l), isDone = done.includes(l.id);
+    l.classList.toggle("locked", locked);
+    l.classList.toggle("done", isDone);
+    l.querySelector(".num").textContent = locked ? "🔒" : isDone ? "✓" : l.id.slice(1);
+    l.querySelector(".rt").textContent = "⏱ " + l.dataset.min + " phút đọc" + (isDone ? " · Đã xong" : locked ? " · Nhập email để mở" : "");
+    l.querySelector(".done-btn").textContent = isDone ? "↺ Bỏ đánh dấu hoàn thành" : "✅ Mình đã đọc xong phần này";
+    if(locked) l.open = false;
+  });
+  gate.hidden = !!user;
+
+  const n = done.filter(id => lessons.some(l => l.id === id)).length;
+  document.getElementById("pcount").textContent = n + "/" + lessons.length;
+  document.getElementById("pbar").style.width = (n / lessons.length * 100) + "%";
+  document.getElementById("finish").hidden = n < lessons.length;
+
+  const next = lessons.find(l => !done.includes(l.id) && !isLocked(l));
+  const resume = document.getElementById("resume");
+  if(n > 0 && next){
+    resume.hidden = false; resume.href = "#" + next.id;
+    document.getElementById("resumeText").textContent = "Đọc tiếp Phần " + next.id.slice(1) + ": " + next.querySelector(".st b").textContent;
+  } else resume.hidden = true;
+}
+
+function openLesson(l){
+  lessons.forEach(x => { if(x !== l) x.open = false; });
+  l.open = true;
+  setTimeout(() => l.scrollIntoView({ block: "start" }), 50);
+}
+
+lessons.forEach(l => {
+  l.querySelector("summary").addEventListener("click", e => {
+    if(isLocked(l)){
+      e.preventDefault();
+      gate.scrollIntoView({ block: "center" });
+      setTimeout(() => document.getElementById("fName").focus({ preventScroll: true }), 400);
+      toast("🔒 Nhập tên và email để mở phần này nhé");
+    }
+  });
+  l.querySelector(".done-btn").addEventListener("click", () => {
+    const was = done.includes(l.id);
+    done = was ? done.filter(id => id !== l.id) : done.concat(l.id);
+    store.set("done", done);
+    if(user) send({ type: "progress", email: user.email, section: l.id, title: l.querySelector(".st b").textContent,
+      done: !was, doneCount: done.length, total: lessons.length });
+    render();
+    if(was) return;
+    const next = lessons.find(x => !done.includes(x.id));
+    if(!next) { l.open = false; document.getElementById("finish").scrollIntoView({ block: "start" }); return; }
+    if(isLocked(next)){ l.open = false; gate.scrollIntoView({ block: "start" }); toast("👏 Xong Phần 1! Nhập email để đọc tiếp"); }
+    else { openLesson(next); toast("👏 Xong rồi! Sang Phần " + next.id.slice(1)); }
+  });
+});
+
+document.getElementById("resume").addEventListener("click", e => {
+  e.preventDefault();
+  const l = document.querySelector(e.currentTarget.getAttribute("href"));
+  if(l) openLesson(l);
+});
+
+document.getElementById("gateForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.currentTarget.elements, err = document.getElementById("fErr");
+  const name = f.name.value.trim(), email = f.email.value.trim().toLowerCase();
+  if(f.website.value) return;                                   // bot điền ô ẩn
+  if(!name){ err.textContent = "Bạn nhập tên giúp Lâm nhé."; f.name.focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ err.textContent = "Email chưa đúng, bạn kiểm tra lại nhé."; f.email.focus(); return; }
+  err.textContent = "";
+  user = { name, email };
+  store.set("user", user);
+  send({ type: "lead", name, email, source: source(), device: IN_APP ? "trong app" : "trình duyệt",
+    doneCount: done.length, total: lessons.length });
+  // gửi lại các phần đã đọc trước khi đăng ký
+  done.forEach(id => {
+    const l = document.getElementById(id);
+    if(l) send({ type: "progress", email, section: id, title: l.querySelector(".st b").textContent, done: true, doneCount: done.length, total: lessons.length });
+  });
+  render();
+  const next = lessons.find(l => !done.includes(l.id));
+  if(next) openLesson(next);
+  toast("🎉 Đã mở khóa! Chúc " + name + " đọc vui");
+});
+
+/* ----- Hoàn thành + trà sữa ----- */
+document.getElementById("ctaZalo").href = CONFIG.zaloGroup;
+document.getElementById("ctaService").href = CONFIG.zaloService;
+
+const tea = CONFIG.tea;
+if(tea.account){
+  let amt = tea.amounts[1] || tea.amounts[0];
+  const amts = document.getElementById("amts");
+  const qr = () => {
+    document.getElementById("qrImg").src = "https://img.vietqr.io/image/" + encodeURIComponent(tea.bank) + "-" + encodeURIComponent(tea.account) +
+      "-compact2.png?amount=" + amt + "&addInfo=" + encodeURIComponent(tea.note) + "&accountName=" + encodeURIComponent(tea.owner);
+    amts.querySelectorAll("button").forEach(b => b.classList.toggle("on", +b.dataset.v === amt));
+  };
+  tea.amounts.forEach(v => {
+    const b = document.createElement("button"); b.type = "button"; b.dataset.v = v;
+    b.textContent = (v / 1000) + "k"; b.addEventListener("click", () => { amt = v; qr(); });
+    amts.appendChild(b);
+  });
+  qr();
+  const line = document.getElementById("bankLine");
+  line.append(tea.bankName + " · ", Object.assign(document.createElement("b"), { textContent: tea.account }), document.createElement("br"), tea.owner);
+  document.getElementById("copyAcc").addEventListener("click", e => copyText(tea.account, e.currentTarget, "✅ Đã sao chép số tài khoản"));
+} else {
+  ["amts", "qrBox", "copyAcc"].forEach(id => document.getElementById(id).hidden = true);
+  document.getElementById("bankLine").textContent = "(Lâm sẽ cập nhật mã QR sớm)";
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+render();
+const first = lessons.find(l => !done.includes(l.id) && !isLocked(l));
+if(first && done.length === 0) first.open = true;
+</script>
+</body>
+</html>
