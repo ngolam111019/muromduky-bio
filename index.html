@@ -90,10 +90,46 @@
   footer a{color:inherit}
 
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* ===== Hướng dẫn mở bằng trình duyệt (TikTok/Facebook in-app) ===== */
+  .inapp-bar,.go-bar{display:none;position:sticky;top:0;z-index:50;margin:0 -16px;padding:11px 58px 11px 16px;
+    font-size:13.5px;font-weight:600;line-height:1.4}
+  .inapp-bar{background:var(--gold);color:#1b1405}
+  .inapp .inapp-bar{display:block}
+  .inapp-bar b{font-weight:800}
+  .inapp-bar .pt{position:absolute;right:16px;top:50%;margin-top:-17px;font-size:26px;line-height:1;animation:bob 1s ease-in-out infinite}
+  @keyframes bob{50%{transform:translate(4px,-5px)}}
+  .go-bar{background:#21c07a;color:#06210f;padding-right:16px}
+  .go-bar.show{display:flex;align-items:center;gap:10px}
+  .go-bar a{margin-left:auto;background:#06210f;color:#fff;text-decoration:none;border-radius:10px;padding:8px 12px;white-space:nowrap;font-weight:700}
+  .btn.pulse{outline:3px solid #21c07a;outline-offset:3px}
+
+  .sheet-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.62);display:none;align-items:flex-end;justify-content:center}
+  .sheet-bg.open{display:flex}
+  .sheet{width:100%;max-width:480px;background:#fff;color:#14202b;border-radius:22px 22px 0 0;padding:22px 20px calc(20px + env(safe-area-inset-bottom));
+    animation:up .22s ease-out}
+  @keyframes up{from{transform:translateY(40px);opacity:0}}
+  .sheet h2{font-size:19px;font-weight:800;line-height:1.3}
+  .sheet .sub{margin-top:6px;font-size:14px;color:#56626d}
+  .steps{list-style:none;margin:16px 0 4px;display:flex;flex-direction:column;gap:10px}
+  .steps li{display:flex;gap:12px;align-items:center;background:#f3f5f7;border-radius:14px;padding:12px}
+  .steps .n{flex:0 0 28px;height:28px;border-radius:50%;background:#14202b;color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  .steps div{font-size:14.5px;line-height:1.4}
+  .kbd{display:inline-block;background:#fff;border:1px solid #d5dbe0;border-radius:8px;padding:1px 8px;font-weight:700;white-space:nowrap}
+  .sheet .after{margin-top:12px;font-size:13.5px;color:#56626d}
+  .sbtn{display:block;width:100%;margin-top:10px;border:0;border-radius:14px;padding:14px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;
+    background:#eef1f4;color:#14202b;text-align:center;text-decoration:none}
+  .sbtn.primary{background:var(--gold);color:#1b1405}
+  .sbtn[hidden]{display:none}
+  .sheet .alt{margin-top:10px;font-size:13px;color:#56626d;text-align:center}
+  .sclose{display:block;margin:12px auto 0;background:none;border:0;font:inherit;font-size:14px;color:#8a949c;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="inapp-bar" id="inappBar">Link Zalo không mở được trong TikTok. Bấm <b>⋯</b> ở góc trên bên phải, chọn <b>Mở trong trình duyệt</b><span class="pt">↗</span></div>
+  <div class="go-bar" id="goBar"><span>Tiếp tục nè 👉</span><a id="goLink" href="#" rel="noopener">Mở</a></div>
+
 
   <header class="hero">
     <img src="assets/cover.jpg" alt="Băng Mũ Rơm trên du thuyền ở Vịnh Hạ Long">
@@ -115,6 +151,22 @@
     One Piece © Eiichiro Oda / Shueisha / Toei Animation.<br>
     © <span id="year"></span> Lâm Solobiz
   </footer>
+</div>
+
+<div class="sheet-bg" id="sheet" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle">Mở bằng trình duyệt để tiếp tục</h2>
+    <p class="sub">TikTok chặn mở Zalo và các trang bên ngoài. Chỉ cần 2 bước:</p>
+    <ol class="steps">
+      <li><span class="n">1</span><div>Bấm nút <span class="kbd">⋯</span> ở <b>góc trên bên phải</b> màn hình</div></li>
+      <li><span class="n">2</span><div>Chọn <span class="kbd">🧭 Mở trong trình duyệt</span></div></li>
+    </ol>
+    <p class="after">Trang sẽ mở trong Safari hoặc Chrome, bấm nút màu xanh ở đầu trang là vào <b id="sheetTarget">link</b>.</p>
+    <a id="chromeBtn" class="sbtn primary" href="#" hidden>Mở ngay bằng Chrome</a>
+    <button id="copyBtn" class="sbtn" type="button">📋 Sao chép link</button>
+    <p class="alt" id="altInfo"></p>
+    <button id="closeSheet" class="sclose" type="button">Đóng</button>
+  </div>
 </div>
 
 <script>
@@ -230,6 +282,77 @@ function updateLive(){
   }
 }
 updateLive(); setInterval(updateLive, 30000);
+
+/* ===== Phát hiện trình duyệt trong TikTok / Facebook / Instagram ===== */
+const UA = navigator.userAgent || "";
+const IN_APP = /musical_ly|Bytedance|BytedanceWebview|TikTok|trill|FBAN|FBAV|Instagram/i.test(UA);
+const IS_ANDROID = /Android/i.test(UA);
+const sheet = document.getElementById("sheet");
+let pendingHref = "";
+
+function pageUrl(go){
+  const u = new URL(location.href); u.hash = "";
+  if(go) u.searchParams.set("go", go); else u.searchParams.delete("go");
+  return u.toString();
+}
+function copyText(s){
+  const done = () => { const b = document.getElementById("copyBtn"); b.textContent = "✅ Đã sao chép! Dán vào Safari/Chrome hoặc Zalo"; };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(s).then(done).catch(() => fallback());
+  } else fallback();
+  function fallback(){
+    const ta = document.createElement("textarea"); ta.value = s; ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, s.length);
+    try{ document.execCommand("copy"); done(); }catch(e){ prompt("Sao chép link này:", s); }
+    ta.remove();
+  }
+}
+function openSheet(a){
+  pendingHref = a.href;
+  const title = (a.querySelector("strong") && a.querySelector("strong").firstChild.textContent.trim()) || a.getAttribute("aria-label") || "link";
+  document.getElementById("sheetTarget").textContent = title;
+  const phone = (a.href.match(/zalo\.me\/(0\d{9})/) || [])[1];
+  document.getElementById("altInfo").textContent = phone
+    ? "Hoặc mở Zalo, tìm số " + phone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3") + " để nhắn tin."
+    : "Hoặc bấm Sao chép link rồi dán vào Safari, Chrome hoặc Zalo.";
+  document.getElementById("copyBtn").textContent = "📋 Sao chép link";
+  if(IS_ANDROID){
+    const u = new URL(pageUrl(a.dataset.id || ""));
+    const cb = document.getElementById("chromeBtn");
+    cb.href = "intent://" + u.host + u.pathname + u.search + "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(u.toString()) + ";end";
+    cb.hidden = false;
+  }
+  sheet.classList.add("open"); sheet.setAttribute("aria-hidden", "false");
+}
+function closeSheet(){ sheet.classList.remove("open"); sheet.setAttribute("aria-hidden", "true"); }
+
+document.getElementById("closeSheet").addEventListener("click", closeSheet);
+sheet.addEventListener("click", e => { if(e.target === sheet) closeSheet(); });
+document.getElementById("copyBtn").addEventListener("click", () => copyText(pendingHref || pageUrl("")));
+
+if(IN_APP){
+  document.body.classList.add("inapp");
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a[href]");
+    if(!a || a.closest(".sheet") || a.id === "handleLink") return;
+    if(/tiktok\.com/i.test(a.href)) return;            // link TikTok vẫn mở được trong TikTok
+    e.preventDefault();
+    history.replaceState(null, "", pageUrl(a.dataset.id || ""));
+    openSheet(a);
+  }, true);
+} else {
+  /* Mở từ trình duyệt thật sau khi bấm "Mở trong trình duyệt": hiện nút tiếp tục */
+  const go = new URLSearchParams(location.search).get("go");
+  if(go){
+    const a = document.querySelector('.btn[data-id="' + go.replace(/[^\w-]/g, "") + '"]');
+    if(a){
+      const bar = document.getElementById("goBar"), link = document.getElementById("goLink");
+      link.href = a.href; link.textContent = a.querySelector("strong").firstChild.textContent.trim() + " ›";
+      bar.classList.add("show"); a.classList.add("pulse");
+    }
+  }
+}
 </script>
 </body>
 </html>
